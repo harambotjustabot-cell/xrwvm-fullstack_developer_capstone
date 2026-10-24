@@ -73,8 +73,24 @@ return(
       <Header/>
       <div style={{marginTop:"10px"}}>
       <h1 style={{color:"grey"}}>{dealer.full_name}{postReview}</h1>
-      <h4  style={{color:"grey"}}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
       </div>
+
+      <div className="dealer_details" style={{border:"1px solid #ccc", borderRadius:"6px",
+        padding:"12px 16px", maxWidth:"760px", marginBottom:"18px", background:"#fafafa"}}>
+        <h3 style={{marginTop:"0", marginBottom:"10px", color:"#333"}}>Dealer details</h3>
+        <table className="table" style={{marginBottom:"0"}}>
+          <tbody>
+            <tr><th style={{width:"28%"}}>Dealer name</th><td>{dealer.full_name}</td></tr>
+            <tr><th>Address</th><td>{dealer.address}</td></tr>
+            <tr><th>City</th><td>{dealer.city}</td></tr>
+            <tr><th>State</th><td>{dealer.state}</td></tr>
+            <tr><th>Zip</th><td>{dealer.zip}</td></tr>
+            <tr><th>Dealer ID</th><td>{dealer.id}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style={{color:"#333", marginBottom:"10px"}}>Customer reviews ({reviews.length})</h3>
       <div class="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
         <text>Loading Reviews....</text>
