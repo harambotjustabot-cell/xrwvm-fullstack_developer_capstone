@@ -48,12 +48,16 @@ jobs:
           node-version: '20'
 
       - name: Install JavaScript dependencies
-        run: npm install --no-save eslint@8 eslint-plugin-react@7
-
-      - name: Run Linter
         run: |
-          npx eslint server/frontend/src server/database \
-            --ext .js,.jsx --no-error-on-unmatched-pattern
+          npm install --no-save eslint@8
+          cd server/frontend && npm install --no-audit --no-fund
+
+      - name: Run Linter (React client)
+        working-directory: server/frontend
+        run: npx eslint src --ext .js,.jsx --max-warnings=0
+
+      - name: Run Linter (Express API)
+        run: npx eslint server/database --ext .js
 
       - name: Report JavaScript lint result
         run: echo "JavaScript lint job completed successfully"
