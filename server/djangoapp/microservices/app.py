@@ -1,6 +1,13 @@
-from flask import Flask
-from nltk.sentiment import SentimentIntensityAnalyzer
+import os
 import json
+
+from flask import Flask
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+# Make sure the bundled VADER lexicon is found next to this file.
+nltk.data.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "sentiment"))
+
 app = Flask("Sentiment Analyzer")
 
 sia = SentimentIntensityAnalyzer()
@@ -32,4 +39,4 @@ def analyze_sentiment(input_txt):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.getenv("PORT", 5050)))

@@ -1,0 +1,16 @@
+$ cd server
+$ python manage.py runserver
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 24, 2026 - 01:37:32
+Django version 4.2.16, using settings 'djangoproj.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+[24/Oct/2026 01:38:21] "GET / HTTP/1.1" 200 3094
+[24/Oct/2026 01:38:21] "GET /dealers HTTP/1.1" 200 652
+GET from http://localhost:3030/fetchDealers?
+[24/Oct/2026 01:38:21] "GET /djangoapp/get_dealers HTTP/1.1" 200 12500
+[24/Oct/2026 01:38:21] "GET /about HTTP/1.1" 200 3612
