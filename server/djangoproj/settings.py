@@ -146,4 +146,3 @@ STATICFILES_DIRS = [
 _react_build_static = os.path.join(BASE_DIR, 'frontend', 'build', 'static')
 if os.path.isdir(_react_build_static):
     STATICFILES_DIRS.append(_react_build_static)
-

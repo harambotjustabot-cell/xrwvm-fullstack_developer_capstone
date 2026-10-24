@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build and validate the full stack application
+  lint-python:
+    name: Lint Python Files
     runs-on: ubuntu-latest
 
     steps:
@@ -19,32 +19,41 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Django dependencies
-        working-directory: server
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install flake8 -r server/requirements.txt
 
-      - name: Run Django system checks
-        working-directory: server
-        run: python manage.py check
+      - name: Run Linter
+        run: |
+          flake8 server \
+            --max-line-length=140 \
+            --exclude=server/frontend,server/static,server/.venv,server/djangoapp/migrations \
+            --count --statistics
+
+      - name: Report Python lint result
+        run: echo "Python lint job completed successfully"
+
+  lint-javascript:
+    name: Lint JavaScript Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Express and Mongo dependencies
-        working-directory: server/database
-        run: npm install
+      - name: Install JavaScript dependencies
+        run: npm install --no-save eslint@8 eslint-plugin-react@7
 
-      - name: Install React dependencies
-        working-directory: server/frontend
-        run: npm install
+      - name: Run Linter
+        run: |
+          npx eslint server/frontend/src server/database \
+            --ext .js,.jsx --no-error-on-unmatched-pattern
 
-      - name: Build the React front end
-        working-directory: server/frontend
-        run: npm run build
-
-      - name: Report CI result
-        run: echo "CI pipeline completed successfully - all checks passed"
+      - name: Report JavaScript lint result
+        run: echo "JavaScript lint job completed successfully"

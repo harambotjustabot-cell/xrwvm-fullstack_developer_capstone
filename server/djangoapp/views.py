@@ -1,10 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth import logout, login, authenticate
-from django.contrib import messages
-from datetime import datetime
 
 import logging
 import json
@@ -58,7 +54,6 @@ def registration(request):
 
     # Check if user already exists
     username_exist = False
-    email_exist = False
     try:
         # Check if user already exists
         User.objects.get(username=username)
